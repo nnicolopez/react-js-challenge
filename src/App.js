@@ -4,11 +4,12 @@ import styles from './App.module.scss';
 import Post from './components/post';
 import * as actions from './store/actions';
 
-const App = ({posts, fetchPosts}) => {
+const App = ({posts, fetchPosts, comments, fetchComments}) => {
   useEffect(() => {
    fetchPosts();
+   fetchComments();
   }, []);
-  console.log(posts);
+  console.log(posts, comments);
   return (
     <div className="App">
       <Post />
@@ -18,13 +19,15 @@ const App = ({posts, fetchPosts}) => {
 
 const mapStateToProps = state => {
   return {
-    posts: state.posts
+    posts: state.posts,
+    comments: state.comments
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchPosts: () => dispatch(actions.fetchPosts())
+    fetchPosts: () => dispatch(actions.fetchPosts()),
+    fetchComments: () => dispatch(actions.fetchComments())
   }
 }
 
