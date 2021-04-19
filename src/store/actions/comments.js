@@ -35,3 +35,31 @@ export const fetchComments = () => {
       });
   }
 }
+
+export const createCommentSuccess = (comment) => {
+  return {
+    type: actionTypes.CREATE_COMMENT_SUCCESS,
+    comment
+  }
+};
+
+export const createCommentFailed = (error) => {
+  return {
+    type: actionTypes.CREATE_COMMENT_FAILED,
+    error: error
+  }
+};
+
+export const createCommentStart = () => {
+  return {
+    type: actionTypes.CREATE_COMMENT_START
+  }
+};
+
+export const createComment = (email, name, body, postId) => {
+  console.log(name, email, body, postId);
+  return dispatch => {
+    dispatch(createCommentStart());
+    setTimeout(() => dispatch(createCommentSuccess({name, email, body, postId, id: Math.random()})), 1000);
+  }
+}

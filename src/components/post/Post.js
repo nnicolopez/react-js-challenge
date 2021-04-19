@@ -1,11 +1,12 @@
-import React, { Suspense, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './Post.module.scss';
 import Loading from '../loading';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
+import * as actions from '../../store/actions';
 
-const Post = ({ title, body, id, comments, isLoading }) => {
+const Post = ({ title, body, id, comments, isLoading, createComment }) => {
   const [showComments, setShowComments] = useState(false);
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -13,7 +14,7 @@ const Post = ({ title, body, id, comments, isLoading }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Create comment in redux later
+    createComment(email, name, comment, id);
     setEmail('');
     setName('');
     setComment('');
@@ -80,7 +81,13 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, null)(Post);
+const mapDispatchToProps = dispatch => {
+  return {
+    createComment: (email, name, body, postId) => dispatch(actions.createComment(email, name, body, postId))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Post);
 
 Post.propTypes = {
   id: PropTypes.number,

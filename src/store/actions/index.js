@@ -1,2 +1,2 @@
 export { fetchPosts } from './posts';
-export { fetchComments } from './comments';
+export { fetchComments, createComment } from './comments';
