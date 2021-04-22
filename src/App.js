@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import styles from './App.module.scss';
 import Post from './components/post';
 import Loading from './components/loading';
 import * as actions from './store/actions';

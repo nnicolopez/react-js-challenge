@@ -18,3 +18,7 @@ The react app will load some posts and comments from https://jsonplaceholder.typ
 
 Since the API is a fake API the comments won't be stored in the server, instead, it will be in the memory used by redux store. So if yo refresh the page new comments will be lost.
 
+
+https://jsonplaceholder.typicode.com/posts seems to be failing. To get the app working if the request fails there is a mocked file with the server response jus to be able to use the app.
+
+![request failing](./static/request-failing.png)
