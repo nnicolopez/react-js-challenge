@@ -1,0 +1,27 @@
+
+.comment {
+  background-color: #dadada;
+  border-radius: 5px;
+
+  margin: 10px auto;
+
+  &-body {
+    padding: 10px;
+  }
+
+  &-name {
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  &-text {
+    font-size: 14px;
+  }
+
+  &-email {
+    font-size: 12px;
+    font-style: italic;
+    text-align: right;
+    padding: 10px;
+  }
+}

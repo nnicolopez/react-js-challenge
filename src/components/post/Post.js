@@ -5,6 +5,7 @@ import Loading from '../loading';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import * as actions from '../../store/actions';
+import Comment from '../comment';
 
 const Post = ({ title, body, id, comments, isLoading, createComment }) => {
   const [showComments, setShowComments] = useState(false);
@@ -23,7 +24,7 @@ const Post = ({ title, body, id, comments, isLoading, createComment }) => {
   const isFormValid = email !== '' && comment !== '';
 
   return (
-    <div className={styles.post}>
+    <div className={styles.post} data-testid='post'>
       <div className={styles['post-body']} onClick={() => setShowComments(prevState => !prevState)}>
         <h3>{title}</h3>
         <p>{body}</p>
@@ -40,12 +41,8 @@ const Post = ({ title, body, id, comments, isLoading, createComment }) => {
             {comments
               .filter(comment => comment.postId === id)
               .map(({ email, name, body, id }) => (
-                <li key={id} className={styles.comment}>
-                  <div className={styles['comment-body']}>
-                    <p className={styles['comment-name']}>{name}</p>
-                    <p className={styles['comment-text']}>{body}</p>
-                  </div>
-                  <p className={styles['comment-email']}>{email}</p>
+                <li key={id}>
+                  <Comment email={email} name={name} body={body} />
                 </li>
               ))}
           </ul>
