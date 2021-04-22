@@ -1,0 +1,45 @@
+
+.comment-form {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  label {
+    flex-basis: 49%;
+
+    @media screen and (max-width: 720px) {
+      flex-basis: 100%;
+    }
+  }
+
+  .comment-label {
+    flex-basis: 100%;
+  }
+
+  input {
+    display: block;
+    padding: 5px;
+    width: 100%;
+  }
+
+  button {
+    margin: 5px 0;
+    width: 100%;
+    padding: 5px;
+    background-color: #5353f5;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+
+    &:hover {
+      background-color: lighten($color: #5353f5, $amount: 5%);
+    }
+
+    &:disabled {
+      background-color: #c0c0c0;
+      cursor: not-allowed;
+    }
+  }
+}
