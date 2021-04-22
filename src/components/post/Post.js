@@ -7,14 +7,14 @@ import classnames from 'classnames';
 import Comment from '../comment';
 import CommentForm from '../commentForm';
 
-const Post = ({ title, body, id, comments, isLoading, createCommentSuccess }) => {
+const Post = ({ title, body, id, comments, isLoading, activePost, createCommentSuccess }) => {
   const [showComments, setShowComments] = useState(false);
 
   useEffect(() => {
-    if (createCommentSuccess) {
+    if (createCommentSuccess && activePost === id) {
       setShowComments(true);
     }
-  }, [createCommentSuccess]);
+  }, [createCommentSuccess, activePost, id, setShowComments]);
 
   return (
     <div className={styles.post} data-testid='post'>
@@ -43,7 +43,7 @@ const Post = ({ title, body, id, comments, isLoading, createCommentSuccess }) =>
 
       </div>
 
-      {isLoading && <Loading />}
+      {(isLoading && activePost === id) && <Loading />}
       
       <CommentForm postId={id} />
     </div>
@@ -53,6 +53,7 @@ const Post = ({ title, body, id, comments, isLoading, createCommentSuccess }) =>
 const mapStateToProps = state => {
   return {
     comments: state.comments.comments,
+    activePost: state.comments.postId,
     isLoading: state.comments.loading,
     createCommentSuccess: state.comments.createCommentSuccess
   }

@@ -9,6 +9,7 @@ export const fetchCommentsSuccess = (comments) => {
 };
 
 export const fetchCommentsFailed = (error) => {
+  alert(`${error} \nThe request for comments has failed so the app will use mocked data for demo purposes.`);
   return {
     type: actionTypes.FETCH_COMMENTS_FAILED,
     error: error
@@ -50,15 +51,16 @@ export const createCommentFailed = (error) => {
   }
 };
 
-export const createCommentStart = () => {
+export const createCommentStart = (postId) => {
   return {
-    type: actionTypes.CREATE_COMMENT_START
+    type: actionTypes.CREATE_COMMENT_START,
+    postId
   }
 };
 
 export const createComment = (email, name, body, postId) => {
   return dispatch => {
-    dispatch(createCommentStart());
+    dispatch(createCommentStart(postId));
     setTimeout(() => dispatch(createCommentSuccess({name, email, body, postId, id: Math.random()})), 1000);
   }
 }

@@ -9,9 +9,10 @@ export const fetchPostsSuccess = (posts) => {
 };
 
 export const fetchPostsFailed = (error) => {
+  alert(`${error} \nThe request for posts has failed so the app will use mocked data for demo purposes.`);
   return {
     type: actionTypes.FETCH_POSTS_FAILED,
-    error: error
+    error: error,
   }
 };
 

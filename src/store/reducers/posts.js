@@ -2,7 +2,7 @@ import * as actionTypes from '../actions/actionTypes';
 import {postsMock} from './mokcs';
 
 const initialState = {
-    postsList: [...postsMock],
+    postsList: [],
     loading: false,
     error: false
 }
@@ -23,6 +23,7 @@ const fetchPostsSuccess = (state, action) => {
 const fetchPostsFailed = (state, action) => {
     return {
       ...state,
+      postsList: [...postsMock], // sometimes the request to the json server fails, in that case it will use mocked data
       loading: false,
       error: action.error
     };
