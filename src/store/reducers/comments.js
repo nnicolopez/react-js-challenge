@@ -1,9 +1,11 @@
 import * as actionTypes from '../actions/actionTypes';
+import { commentsMock } from './mokcs';
 
 const initialState = {
-    comments: [],
+    comments: [...commentsMock],
     loading: false,
-    error: false
+    error: false,
+    createCommentSuccess: false,
 }
 
 const fetchCommentsStart = (state, action) => {
@@ -21,6 +23,7 @@ const fetchCommentsSuccess = (state, action) => {
 };
 const fetchCommentsFailed = (state, action) => {
     return {
+      ...state,
       loading: false,
       error: action.error
     };
@@ -29,14 +32,16 @@ const fetchCommentsFailed = (state, action) => {
 const createCommentStart = (state, action) => {
   return {
     ...state,
-    loading: true 
+    loading: true,
+    createCommentSuccess: false,
   };
 };
 const createCommentSuccess = (state, action) => {
   return {
     ...state, 
     comments: [...state.comments, action.comment], 
-    loading: false
+    loading: false,
+    createCommentSuccess: true,
   };
 };
 const createCommentFailed = (state, action) => {

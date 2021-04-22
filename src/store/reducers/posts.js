@@ -1,7 +1,8 @@
 import * as actionTypes from '../actions/actionTypes';
+import {postsMock} from './mokcs';
 
 const initialState = {
-    postsList: [],
+    postsList: [...postsMock],
     loading: false,
     error: false
 }
@@ -21,6 +22,7 @@ const fetchPostsSuccess = (state, action) => {
 };
 const fetchPostsFailed = (state, action) => {
     return {
+      ...state,
       loading: false,
       error: action.error
     };

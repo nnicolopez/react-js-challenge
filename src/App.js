@@ -9,8 +9,8 @@ const App = ({posts, fetchPosts, comments, fetchComments}) => {
   useEffect(() => {
    fetchPosts();
    fetchComments();
-  }, []);
-  console.log(posts, comments);
+  }, [fetchPosts, fetchComments]);
+
   return (
     <div>
       {posts.loading ? <Loading /> : (

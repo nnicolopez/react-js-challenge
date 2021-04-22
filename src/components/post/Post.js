@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styles from './Post.module.scss';
 import Loading from '../loading';
@@ -7,7 +7,7 @@ import classnames from 'classnames';
 import * as actions from '../../store/actions';
 import Comment from '../comment';
 
-const Post = ({ title, body, id, comments, isLoading, createComment }) => {
+const Post = ({ title, body, id, comments, isLoading, createComment, createCommentSuccess }) => {
   const [showComments, setShowComments] = useState(false);
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -22,6 +22,12 @@ const Post = ({ title, body, id, comments, isLoading, createComment }) => {
   }
 
   const isFormValid = email !== '' && comment !== '';
+
+  useEffect(() => {
+    if (createCommentSuccess) {
+      setShowComments(true);
+    }
+  }, [createCommentSuccess]);
 
   return (
     <div className={styles.post} data-testid='post'>
@@ -74,7 +80,8 @@ const Post = ({ title, body, id, comments, isLoading, createComment }) => {
 const mapStateToProps = state => {
   return {
     comments: state.comments.comments,
-    isLoading: state.comments.loading
+    isLoading: state.comments.loading,
+    createCommentSuccess: state.comments.createCommentSuccess
   }
 }
 
