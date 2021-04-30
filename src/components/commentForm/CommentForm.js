@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { connect } from 'react-redux';
+import { useContext, useState } from 'react';
+import BlogContext from '../../context/blogContext';
 import styles from './CommentForm.module.scss';
-import * as actions from '../../store/actions';
 
-const CommentForm = ({ createComment, postId }) => {
+const CommentForm = ({ postId }) => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [comment, setComment] = useState('');
-
+  const { createComment } = useContext(BlogContext);
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     createComment(email, name, comment, postId);
@@ -37,10 +37,4 @@ const CommentForm = ({ createComment, postId }) => {
   );
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    createComment: (email, name, body, postId) => dispatch(actions.createComment(email, name, body, postId))
-  }
-}
-
-export default connect(null, mapDispatchToProps)(CommentForm);
+export default CommentForm;

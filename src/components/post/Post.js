@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import styles from './Post.module.scss';
 import Loading from '../loading';
-import { connect } from 'react-redux';
 import classnames from 'classnames';
 import Comment from '../comment';
 import CommentForm from '../commentForm';
+import BlogContext from '../../context/blogContext';
 
-const Post = ({ title, body, id, comments, isLoading, activePost, createCommentSuccess }) => {
+const Post = ({ title, body, id }) => {
   const [showComments, setShowComments] = useState(false);
+  const {comments, newComment} = useContext(BlogContext);
 
   useEffect(() => {
-    if (createCommentSuccess && activePost === id) {
+    if (newComment.postId === id && !newComment.isLoading) {
       setShowComments(true);
     }
-  }, [createCommentSuccess, activePost, id, setShowComments]);
+  }, [newComment.postId, newComment.isLoading, id]);
 
   return (
     <div className={styles.post} data-testid='post'>
@@ -40,26 +41,16 @@ const Post = ({ title, body, id, comments, isLoading, activePost, createCommentS
               ))}
           </ul>
         )}
-
       </div>
 
-      {(isLoading && activePost === id) && <Loading />}
+      {(newComment.isLoading && newComment.postId === id) && <Loading />}
       
       <CommentForm postId={id} />
     </div>
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    comments: state.comments.comments,
-    activePost: state.comments.postId,
-    isLoading: state.comments.loading,
-    createCommentSuccess: state.comments.createCommentSuccess
-  }
-}
-
-export default connect(mapStateToProps)(Post);
+export default Post;
 
 Post.propTypes = {
   id: PropTypes.number,

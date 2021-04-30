@@ -3,26 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
-import thunk from 'redux-thunk';
-import postsReducer from './store/reducers/posts';
-import commentsReducer from './store/reducers/comments';
-
-const composeEnhancers = (process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null) || compose;
-
-const rootReducer = combineReducers({
-  posts: postsReducer,
-  comments: commentsReducer
-});
-
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
+import { BlogContextProvider } from './context/blogContext';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
+    <BlogContextProvider>
       <App />
-    </Provider>
+    </BlogContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

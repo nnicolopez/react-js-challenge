@@ -1,20 +1,15 @@
-import { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useContext } from 'react';
 import Post from './components/post';
-import Loading from './components/loading';
-import * as actions from './store/actions';
+import BlogContext from './context/blogContext';
 
-const App = ({posts, fetchPosts, comments, fetchComments}) => {
-  useEffect(() => {
-   fetchPosts();
-   fetchComments();
-  }, [fetchPosts, fetchComments]);
+const App = () => {
+  const { posts } = useContext(BlogContext);
 
   return (
     <div>
-      {posts.loading ? <Loading /> : (
+      {posts && (
         <ul>
-          {posts?.postsList?.map(post => (
+          {posts?.map(post => (
             <li key={post.id}>
               <Post {...post} />
             </li>
@@ -25,18 +20,4 @@ const App = ({posts, fetchPosts, comments, fetchComments}) => {
   );
 }
 
-const mapStateToProps = state => {
-  return {
-    posts: state.posts,
-    comments: state.comments
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchPosts: () => dispatch(actions.fetchPosts()),
-    fetchComments: () => dispatch(actions.fetchComments())
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
